@@ -2,6 +2,20 @@ FADE_IN_TIME = 2;
 DEFAULT_TOOLTIP_COLOR = {0.8, 0.8, 0.8, 0.09, 0.09, 0.09};
 MAX_PIN_LENGTH = 10;
 
+
+--[[
+Boton 1 ()Iniciar sesion):
+AccountLoginAccountEdit
+AccountLoginPasswordEdit
+AccountLoginLoginButton
+
+Boton 2 (Crear cuenta):
+
+Boton 3 (Salir):
+AccountLoginExitButton (No esconder, solo mover y variar tamano)
+
+]]
+
 function AccountLogin_OnLoad(self)
 	TOSFrame.noticeType = "EULA";
 
@@ -13,7 +27,7 @@ function AccountLogin_OnLoad(self)
 	self:RegisterEvent("SCANDLL_FINISHED");
 
 	local versionType, buildType, version, internalVersion, date = GetBuildInfo();
-	AccountLoginVersion:SetFormattedText(VERSION_TEMPLATE, versionType, version, internalVersion, buildType, date);
+	--AccountLoginVersion:SetFormattedText(VERSION_TEMPLATE, versionType, version, internalVersion, buildType, date);
 
 	-- Color edit box backdrops
 	local backdropColor = DEFAULT_TOOLTIP_COLOR;
@@ -26,31 +40,27 @@ function AccountLogin_OnLoad(self)
 	TokenEnterDialogBackgroundEdit:SetBackdropBorderColor(backdropColor[1], backdropColor[2], backdropColor[3]);
 	TokenEnterDialogBackgroundEdit:SetBackdropColor(backdropColor[4], backdropColor[5], backdropColor[6]);
 
-	self:SetCamera(0);
-	self:SetSequence(0);
+--	self:SetCamera(0);
+--	self:SetSequence(0);
+	LoginMesageText:SetText(HOME_MSG);
+	LoginMesage:SetHeight(LoginMesageText:GetHeight() + 26);
 	
-	if (IsStreamingTrial()) then
-		AccountLoginCinematicsButton:Disable();
-		AccountLogin:SetModel("Interface\\Glues\\Models\\UI_MainMenu\\UI_MainMenu.m2");
-	else
-		AccountLogin:SetModel("Interface\\Glues\\Models\\UI_MainMenu_Northrend\\UI_MainMenu_Northrend.m2");
-	end
 end
 
 function AccountLogin_OnShow(self)
-	self:SetSequence(0);
+--	self:SetSequence(0);
 	PlayGlueMusic(CurrentGlueMusic);
 	PlayGlueAmbience(GlueAmbienceTracks["DARKPORTAL"], 4.0);
 
 	-- Try to show the EULA or the TOS
 	AccountLogin_ShowUserAgreements();
 	
-	local serverName = GetServerName();
+	--[[local serverName = GetServerName();
 	if(serverName) then
 		AccountLoginRealmName:SetText(serverName);
 	else
 		AccountLoginRealmName:Hide()
-	end
+	end]]
 
 	local accountName = GetSavedAccountName();
 	
@@ -71,11 +81,11 @@ function AccountLogin_OnShow(self)
 		AccountLogin_FocusPassword();
 	end
 	
-	if( IsTrialAccount() ) then
+	--[[if( IsTrialAccount() ) then
 		AccountLoginUpgradeAccountButton:Show();
 	else
 		AccountLoginUpgradeAccountButton:Hide();
-	end
+	end]]
 
 	ACCOUNT_MSG_NUM_AVAILABLE = 0;
 	ACCOUNT_MSG_PRIORITY = 0;
@@ -89,6 +99,43 @@ function AccountLogin_OnHide(self)
 	StopAllSFX( 1.0 );
 	if ( not AccountLoginSaveAccountName:GetChecked() ) then
 		SetSavedAccountList("");
+	end
+
+
+	AccountLoginAccountEdit:Hide();
+	AccountLoginPasswordEdit:Hide();
+	AccountLoginLoginButton:Hide();
+	AccountLoginShowLoginButton:SetText(SHOW_LOGIN)
+
+	AccountLoginCreateAccButton:Show();
+	AccountLoginExitButton:Show();
+	AccountLoginShowLoginButton:SetPoint("BOTTOM", GlueParent, "BOTTOM", 0, 411)
+end
+
+function create_account()
+	LaunchURL("https://www.google.com")
+end
+
+function AccountLogin_Show_login()
+	if AccountLoginAccountEdit:IsShown() then
+		AccountLoginAccountEdit:Hide();
+		AccountLoginPasswordEdit:Hide();
+		AccountLoginLoginButton:Hide();
+		AccountLoginShowLoginButton:SetText(SHOW_LOGIN)
+
+		AccountLoginCreateAccButton:Show();
+		AccountLoginExitButton:Show();
+		AccountLoginShowLoginButton:SetPoint("BOTTOM", GlueParent, "BOTTOM", 0, 411)
+	else
+		AccountLoginAccountEdit:Show();
+		AccountLoginPasswordEdit:Show();
+		AccountLoginLoginButton:Show();
+		AccountLoginShowLoginButton:SetText(BACK)
+
+		--Esconder demas botones del menu y mover "back"
+		AccountLoginCreateAccButton:Hide();
+		AccountLoginExitButton:Hide();
+		AccountLoginShowLoginButton:SetPoint("BOTTOM", GlueParent, "BOTTOM", 0, 20)
 	end
 end
 
@@ -118,7 +165,11 @@ function AccountLogin_OnKeyDown(key)
 		elseif ( SurveyNotificationFrame:IsShown() ) then
 			AccountLogin_SurveyNotificationDone(1);
 		end
-		AccountLogin_Login();
+		if ( AccountLoginPasswordEdit:IsShown()) then
+			AccountLogin_Login();
+		else
+			AccountLogin_Show_login()
+		end
 	elseif ( key == "PRINTSCREEN" ) then
 		Screenshot();
 	end
@@ -126,8 +177,8 @@ end
 
 function AccountLogin_OnEvent(event, arg1, arg2, arg3)
 	if ( event == "SHOW_SERVER_ALERT" ) then
-		ServerAlertText:SetText(arg1);
-		ServerAlertFrame:Show();
+		--GameRoomBillingFrameText:SetText(arg1);
+		--ServerAlertFrame:Show();
 	elseif ( event == "SHOW_SURVEY_NOTIFICATION" ) then
 		AccountLogin_ShowSurveyNotification();
 	elseif ( event == "CLIENT_ACCOUNT_MISMATCH" ) then
@@ -171,6 +222,8 @@ function AccountLogin_Login()
 	PlaySound("gsLogin");
 	DefaultServerLogin(AccountLoginAccountEdit:GetText(), AccountLoginPasswordEdit:GetText());
 	AccountLoginPasswordEdit:SetText("");
+
+
 	
 	if ( AccountLoginSaveAccountName:GetChecked() ) then
 		SetSavedAccountName(AccountLoginAccountEdit:GetText());
@@ -687,12 +740,12 @@ end
 AccountList = {};
 function AccountLogin_SetupAccountListDDL()
 	if ( GetSavedAccountName() ~= "" and GetSavedAccountList() ~= "" ) then
-		AccountLoginPasswordEdit:SetPoint("BOTTOM", 0, 255);
-		AccountLoginLoginButton:SetPoint("BOTTOM", 0, 150);
+		--AccountLoginPasswordEdit:SetPoint("BOTTOM", 0, 255);
+		--AccountLoginLoginButton:SetPoint("BOTTOM", 0, 150);
 		AccountLoginDropDown:Show();
 	else
-		AccountLoginPasswordEdit:SetPoint("BOTTOM", 0, 275);
-		AccountLoginLoginButton:SetPoint("BOTTOM", 0, 170);
+		--AccountLoginPasswordEdit:SetPoint("BOTTOM", 0, 275);
+		--AccountLoginLoginButton:SetPoint("BOTTOM", 0, 170);
 		AccountLoginDropDown:Hide();
 		return;
 	end

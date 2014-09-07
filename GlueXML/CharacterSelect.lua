@@ -8,6 +8,7 @@ MAX_CHARACTERS_PER_REALM = 10;
 
 
 function CharacterSelect_OnLoad(self)
+
 	self:SetSequence(0);
 	self:SetCamera(0);
 
@@ -40,6 +41,9 @@ function CharacterSelect_OnLoad(self)
 end
 
 function CharacterSelect_OnShow()
+	if speed <= 0 then
+		speed = 1;
+	end
 	-- request account data times from the server (so we know if we should refresh keybindings, etc...)
 	ReadyForAccountDataTimes()
 	
@@ -67,7 +71,8 @@ function CharacterSelect_OnShow()
 		elseif ( isRP ) then
 			serverType = RP_PARENTHESES;
 		end
-		CharSelectRealmName:SetText(serverName.." "..serverType);
+		--CharSelectRealmName:SetText(serverName.." "..serverType);
+		CharSelectRealmName:SetText("serverName....serverType");
 		CharSelectRealmName:Show();
 	else
 		CharSelectRealmName:Hide();
@@ -172,8 +177,39 @@ function CharacterSelect_OnHide()
 	end
 	SERVER_SPLIT_STATE_PENDING = -1;
 end
+pos = 20;
+limit = false;
+heightsc = GetScreenHeight()-50;
+function movimiento(sp)
+	while not limit and pos <= heightsc do
+		pos=pos+sp
+		if pos >= heightsc then
+			limit = true
+		end
+		break
+	end
+
+	while limit and pos >= 20 do
+		pos=pos-sp
+		if pos <= 20 then
+			limit = false
+		end
+		break
+	end
+	CharSelectEnterWorldButton:SetPoint("BOTTOM", 0, pos)
+end
+
+function PrintLimit()
+	if limit then
+		return "true"
+	else
+		return "false"
+	end
+end
 
 function CharacterSelect_OnUpdate(elapsed)
+	movimiento(5);
+	GameRoomBillingFrameText:SetText("Velocidad: "..speed.."\nRotacion: "..GetCharacterSelectFacing().."\n\nPersonajes: "..GetNumCharacters().."\nAddons: "..GetNumAddOns().."\n\nPosicion:"..pos.."\nLimit: "..PrintLimit().."\nResolucion vertical:"..GetScreenHeight());
 	if ( SERVER_SPLIT_STATE_PENDING > 0 ) then
 		CharacterSelectRealmSplitButton:Show();
 
@@ -474,7 +510,7 @@ function CharacterSelect_ChangeRealm()
 	RequestRealmList(1);
 end
 
-function CharacterSelectFrame_OnMouseDown(button)
+--[[function CharacterSelectFrame_OnMouseDown(button)
 	if ( button == "LeftButton" ) then
 		CHARACTER_SELECT_ROTATION_START_X = GetCursorPosition();
 		CHARACTER_SELECT_INITIAL_FACING = GetCharacterSelectFacing();
@@ -485,18 +521,39 @@ function CharacterSelectFrame_OnMouseUp(button)
 	if ( button == "LeftButton" ) then
 		CHARACTER_SELECT_ROTATION_START_X = nil
 	end
+end]]
+speed = 1;
+function IncreaseSpeed(qt)
+	speed = speed + qt
+	return speed;
+end
+
+function DecreaseSpeed(qt)
+	if speed > 1 then
+		speed = speed - qt
+		return speed;
+	end
+end
+
+function RotationStop()
+	speed = 0;
 end
 
 function CharacterSelectFrame_OnUpdate()
-	if ( CHARACTER_SELECT_ROTATION_START_X ) then
+	--[[if ( CHARACTER_SELECT_ROTATION_START_X ) then
 		local x = GetCursorPosition();
 		local diff = (x - CHARACTER_SELECT_ROTATION_START_X) * CHARACTER_ROTATION_CONSTANT;
 		CHARACTER_SELECT_ROTATION_START_X = GetCursorPosition();
 		SetCharacterSelectFacing(GetCharacterSelectFacing() + diff);
+	end]]
+	if GetCharacterSelectFacing()>=360 then
+		SetCharacterSelectFacing(0)
+	else
+		SetCharacterSelectFacing(GetCharacterSelectFacing() + speed);
 	end
 end
 
-function CharacterSelectRotateRight_OnUpdate(self)
+--[[function CharacterSelectRotateRight_OnUpdate(self)
 	if ( self:GetButtonState() == "PUSHED" ) then
 		SetCharacterSelectFacing(GetCharacterSelectFacing() + CHARACTER_FACING_INCREMENT);
 	end
@@ -506,7 +563,7 @@ function CharacterSelectRotateLeft_OnUpdate(self)
 	if ( self:GetButtonState() == "PUSHED" ) then
 		SetCharacterSelectFacing(GetCharacterSelectFacing() - CHARACTER_FACING_INCREMENT);
 	end
-end
+end]]
 
 function CharacterSelect_ManageAccount()
 	PlaySound("gsCharacterSelectionAcctOptions");
@@ -538,9 +595,9 @@ function CharacterSelect_DeathKnightSwap(self)
 	if ( CharacterSelect.currentModel == "DEATHKNIGHT" ) then
 		if (self.currentModel ~= "DEATHKNIGHT") then
 			self.currentModel = "DEATHKNIGHT";
-			self:SetNormalTexture("Interface\\Glues\\Common\\Glue-Panel-Button-Up-Blue");
-			self:SetPushedTexture("Interface\\Glues\\Common\\Glue-Panel-Button-Down-Blue");
-			self:SetHighlightTexture("Interface\\Glues\\Common\\Glue-Panel-Button-Highlight-Blue");
+			--self:SetNormalTexture("Interface\\Glues\\Common\\Glue-Panel-Button-Up-Blue");
+			--self:SetPushedTexture("Interface\\Glues\\Common\\Glue-Panel-Button-Down-Blue");
+			--self:SetHighlightTexture("Interface\\Glues\\Common\\Glue-Panel-Button-Highlight-Blue");
 		end
 	else
 		if (self.currentModel == "DEATHKNIGHT") then
@@ -551,4 +608,3 @@ function CharacterSelect_DeathKnightSwap(self)
 		end
 	end
 end
-

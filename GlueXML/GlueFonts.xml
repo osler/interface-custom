@@ -61,6 +61,12 @@
 			<AbsValue val="18"/>
 		</FontHeight>
 	</Font>
+	<Font name="GLueFontDisableXXL" font="Fonts\FRIZQT__.TTF" outline="NORMAL" virtual="true">
+		<Color r="0.5" g="0.5" b="0.5"/>
+		<FontHeight>
+			<AbsValue val="47"/>
+		</FontHeight>
+	</Font>
 	<Font name="SystemFont_Shadow_Outline_Huge" font="Fonts\FRIZQT__.TTF" outline="NORMAL" virtual="true">
 		<Shadow>
 			<Offset>
@@ -76,6 +82,12 @@
 	<Font name="EditBoxFont_Large" font="Fonts\ARIALN.TTF" virtual="true">
 		<FontHeight>
 			<AbsValue val="16"/>
+		</FontHeight>
+	</Font>
+
+	<Font name="GlueEditBoxFontXXL" font="Fonts\ARIALN.TTF" virtual="true">
+		<FontHeight>
+			<AbsValue val="46"/>
 		</FontHeight>
 	</Font>
 

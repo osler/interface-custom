@@ -165,20 +165,7 @@
 							</Anchors>
 						</FontString>
 					</Layer>
-					<Layer level="OVERLAY">
-						<Texture name="CharacterSelectLogo" file="Interface\Glues\Common\Glues-WoW-WotLKLogo">
-							<Size>
-								<AbsDimension x="256" y="128"/>
-							</Size>
-							<Anchors>
-								<Anchor point="TOPLEFT">
-									<Offset>
-										<AbsDimension x="3" y="-7"/>
-									</Offset>
-								</Anchor>
-							</Anchors>
-						</Texture>
-					</Layer>
+
 				</Layers>
 				<Frames>
 					<Button name="CharSelectEnterWorldButton" inherits="GlueButtonTemplate" text="ENTER_WORLD">
@@ -201,7 +188,7 @@
 							</OnUpdate>
 						</Scripts>
 					</Button>
-					<Button name="CharacterSelectRotateLeft">
+					<!--<Button name="CharacterSelectDecreaseSpeed">
 						<Size>
 							<AbsDimension x="50" y="50"/>
 						</Size>
@@ -216,15 +203,9 @@
 							<AbsInset left="13" right="13" top="10" bottom="13"/>
 						</HitRectInsets>
 						<Scripts>
-							<OnLoad>
-								self:RegisterForClicks("LeftButtonDown", "LeftButtonUp");
-							</OnLoad>
 							<OnClick>
-								PlaySound("igInventoryRotateCharacter");
+								DecreaseSpeed();
 							</OnClick>
-							<OnUpdate>
-								CharacterSelectRotateLeft_OnUpdate(self);
-							</OnUpdate>
 						</Scripts>
 						<NormalTexture file="Interface\Glues\CharacterCreate\UI-RotationRight-Big-Up">
 							<TexCoords left="1.0" right="0" top="0" bottom="1.0"/>
@@ -245,12 +226,12 @@
 							</Anchors>
 						</HighlightTexture>
 					</Button>
-					<Button name="CharacterSelectRotateRight">
+					<Button name="CharacterSelectIncreaseSpeed">
 						<Size>
 							<AbsDimension x="50" y="50"/>
 						</Size>
 						<Anchors>
-							<Anchor point="LEFT" relativeTo="CharacterSelectRotateLeft" relativePoint="RIGHT">
+							<Anchor point="LEFT" relativeTo="CharacterSelectDecreaseSpeed" relativePoint="RIGHT">
 								<Offset>
 									<AbsDimension x="-19" y="0"/>
 								</Offset>
@@ -260,15 +241,9 @@
 							<AbsInset left="13" right="13" top="10" bottom="13"/>
 						</HitRectInsets>
 						<Scripts>
-							<OnLoad>
-								self:RegisterForClicks("LeftButtonDown", "LeftButtonUp");
-							</OnLoad>
 							<OnClick>
-								PlaySound("igInventoryRotateCharacter");
+								IncreaseSpeed();
 							</OnClick>
-							<OnUpdate>
-								CharacterSelectRotateRight_OnUpdate(self);
-							</OnUpdate>
 						</Scripts>
 						<NormalTexture file="Interface\Glues\CharacterCreate\UI-RotationRight-Big-Up"/>
 						<PushedTexture file="Interface\Glues\CharacterCreate\UI-RotationRight-Big-Down"/>
@@ -284,6 +259,76 @@
 								</Anchor>
 							</Anchors>
 						</HighlightTexture>
+					</Button>-->
+					<Button name="CharacterSelectDecreaseSpeed" inherits="VirtualKeyPadButtonTemplate" text="--">
+						<Anchors>
+							<Anchor point="bottom">
+								<Offset>
+									<AbsDimension x="-80" y="10"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnClick>
+								DecreaseSpeed(10);
+							</OnClick>
+						</Scripts>
+					</Button>
+					<Button name="CharacterSelectDecreaseSpeed" inherits="VirtualKeyPadButtonTemplate" text="-">
+						<Anchors>
+							<Anchor point="bottom">
+								<Offset>
+									<AbsDimension x="-40" y="10"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnClick>
+								DecreaseSpeed(1);
+							</OnClick>
+						</Scripts>
+					</Button>
+					<Button name="CharacterSelectRotationStop" inherits="VirtualKeyPadButtonTemplate" text="/\">
+						<Anchors>
+							<Anchor point="BOTTOM">
+								<Offset>
+									<AbsDimension x="0" y="10"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnClick>
+								RotationStop();
+							</OnClick>
+						</Scripts>
+					</Button>
+					<Button name="CharacterSelectIncreaseSpeed" inherits="VirtualKeyPadButtonTemplate" text="+">
+						<Anchors>
+							<Anchor point="BOTTOM">
+								<Offset>
+									<AbsDimension x="40" y="10"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnClick>
+								IncreaseSpeed(1);
+							</OnClick>
+						</Scripts>
+					</Button>
+					<Button name="CharacterSelectIncreaseSpeedX10" inherits="VirtualKeyPadButtonTemplate" text="++">
+						<Anchors>
+							<Anchor point="BOTTOM">
+								<Offset>
+									<AbsDimension x="80" y="10"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnClick>
+								IncreaseSpeed(10);
+							</OnClick>
+						</Scripts>
 					</Button>
 					<Button name="CharacterSelectBackButton" inherits="GlueButtonSmallTemplate" text="BACK">
 						<Size>
@@ -823,12 +868,6 @@
 					</Frame>
 				</Frames>
 				<Scripts>
-					<OnMouseDown>
-						CharacterSelectFrame_OnMouseDown(button);
-					</OnMouseDown>
-					<OnMouseUp>
-						CharacterSelectFrame_OnMouseUp(button);
-					</OnMouseUp>
 					<OnUpdate>
 						CharacterSelectFrame_OnUpdate();
 					</OnUpdate>
@@ -868,14 +907,14 @@
 					</Button>
 				</Frames>
 			</Frame>
-			<Frame name="GameRoomBillingFrame" hidden="true">
+			<Frame name="GameRoomBillingFrame">
 				<Size>
-					<AbsDimension x="255" y="60"/>
+					<AbsDimension x="260" y="642"/>
 				</Size>
 				<Anchors>
-					<Anchor point="TOP" relativeTo="CharacterSelectLogo" relativePoint="BOTTOM">
+					<Anchor point="TOPLEFT">
 						<Offset>
-							<AbsDimension x="0" y="-50"/>
+							<AbsDimension x="5" y="-15"/>
 						</Offset>
 					</Anchor>
 				</Anchors>

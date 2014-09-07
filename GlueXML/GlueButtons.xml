@@ -42,6 +42,36 @@
 	<Texture name="GluePanelButtonHighlightTextureBlue" file="Interface\Glues\Common\Glue-Panel-Button-Highlight-Blue" alphaMode="ADD" virtual="true">
 		<TexCoords left="0" right="0.625" top="0" bottom="0.6875"/>
 	</Texture>
+
+
+	<!--Nuevos botones azules-->
+	<Texture name="GluePanelButtonUpTextureXXL" file="Interface\Glues\Common\normal" virtual="true">
+		<TexCoords left="0" right="0.578125" top="0" bottom="0.75"/>
+	</Texture>
+	<Texture name="GluePanelButtonDownTextureXXL" file="Interface\Glues\Common\pulsado" virtual="true">
+		<TexCoords left="0" right="0.578125" top="0" bottom="0.75"/>
+	</Texture>
+	<Texture name="GluePanelButtonHighlightTextureXXL" file="Interface\Glues\Common\over" virtual="true">
+		<TexCoords left="0" right="0.578125" top="0" bottom="0.75"/>
+	</Texture>
+	<Texture name="GluePanelButtonDisabledTextureXXL" file="Interface\Glues\Common\normal" virtual="true">
+		<TexCoords left="0" right="0.578125" top="0" bottom="0.75"/>
+	</Texture>
+	<!--Nuevos botones rojos-->
+	<Texture name="GluePanelRedButtonUpTextureXXL" file="Interface\Glues\Common\normal-r" virtual="true">
+		<TexCoords left="0" right="0.578125" top="0" bottom="0.75"/>
+	</Texture>
+	<Texture name="GluePanelRedButtonDownTextureXXL" file="Interface\Glues\Common\pulsado-r" virtual="true">
+		<TexCoords left="0" right="0.578125" top="0" bottom="0.75"/>
+	</Texture>
+	<Texture name="GluePanelRedButtonHighlightTextureXXL" file="Interface\Glues\Common\over-r" virtual="true">
+		<TexCoords left="0" right="0.578125" top="0" bottom="0.75"/>
+	</Texture>
+	<Texture name="GluePanelRedButtonDisabledTextureXXL" file="Interface\Glues\Common\normal-r" virtual="true">
+		<TexCoords left="0" right="0.578125" top="0" bottom="0.75"/>
+	</Texture>
+
+
 	<Button name="GlueButtonTemplate" virtual="true">
 		<Size>
 			<AbsDimension x="170" y="45"/>
@@ -84,6 +114,75 @@
 		<DisabledTexture inherits="GluePanelButtonDisabledTexture"/>
 		<HighlightTexture inherits="GluePanelButtonHighlightTextureBlue" alphaMode="ADD"/>
 	</Button>
+
+
+
+
+
+	<Button name="GlueButtonTemplateXXL" virtual="true">
+		<Size>
+			<AbsDimension x="340" y="90"/>
+		</Size>
+		<ButtonText>
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="0" y="3"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+		</ButtonText>
+		<NormalFont style="GlueFontNormal"/>
+		<HighlightFont style="GlueFontHighlight"/>
+		<DisabledFont style="GlueFontDisable"/>
+		<NormalTexture inherits="GluePanelRedButtonUpTextureXXL"/>
+		<PushedTexture inherits="GluePanelRedButtonDownTextureXXL"/>
+		<DisabledTexture inherits="GluePanelRedButtonDisabledTextureXXL"/>
+		<HighlightTexture inherits="GluePanelRedButtonHighlightTextureXXL" alphaMode="ADD"/>
+		<Scripts>
+			<OnEnter>
+				PlaySoundFile("Interface\\Glues\\Sounds\\XXLButtonOverSound.wav");
+			</OnEnter>
+		</Scripts>
+	</Button>
+
+
+
+
+
+	<Button name="GlueButtonTemplateBlueXXL" virtual="true">
+		<Size>
+			<AbsDimension x="340" y="90"/>
+		</Size>
+		<ButtonText>
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="0" y="3"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+		</ButtonText>
+		<NormalFont style="GlueFontNormal"/>
+		<HighlightFont style="GlueFontHighlight"/>
+		<DisabledFont style="GlueFontDisable"/>
+		<NormalTexture inherits="GluePanelButtonUpTextureXXL"/>
+		<PushedTexture inherits="GluePanelButtonDownTextureXXL"/>
+		<DisabledTexture inherits="GluePanelButtonDisabledTextureXXL"/>
+		<HighlightTexture inherits="GluePanelButtonHighlightTextureXXL" alphaMode="ADD"/>
+		<Scripts>
+			<OnEnter>
+				PlaySoundFile("Interface\\Glues\\Sounds\\XXLButtonOverSound.wav");
+				--PlaySoundFile("Sound\\Creature\\MobileAlertBot\\MobileAlertBotIntruderAlert01.wav");
+			</OnEnter>
+		</Scripts>
+	</Button>
+
+
+
+
+
+
 	<Button name="GlueButtonSmallTemplate" virtual="true">
 		<Size>
 			<AbsDimension x="150" y="38"/>

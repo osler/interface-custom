@@ -1,5 +1,8 @@
--- AUTOMATICALLY GENERATED -- DO NOT EDIT!
+--Custom
+SHOW_LOGIN = "Iniciar sesión";
+HOME_MSG = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut arcu diam, vulputate in imperdiet eu, efficitur eu velit. Suspendisse tempor, urna ut pharetra placerat, ligula tellus accumsan sem, a lacinia nulla tortor sed sapien. Aenean ligula neque, hendrerit vitae risus sed, sodales convallis diam. Donec blandit velit malesuada, dignissim enim a, tristique ante. Mauris lobortis ornare tristique. Nulla in porttitor dolor, vel venenatis lorem. Morbi vitae convallis lacus. Quisque imperdiet tempus laoreet. Nulla elementum ut nulla sed dignissim. Donec vitae convallis dui. In a dolor sed neque tempus convallis. Nam dignissim venenatis sapien, quis fermentum magna tristique a. Sed a fermentum dolor. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. ";
 
+--Blizz
 ABILITY_INFO_BLOODELF1 = "- Habilidad en encantar aumentada.";
 ABILITY_INFO_BLOODELF2 = "- Puede restaurar maná, energía o poder rúnico.";
 ABILITY_INFO_BLOODELF3 = "- Puede silenciar a los oponentes cercanos.";
@@ -53,7 +56,7 @@ ACCOUNT_MESSAGE_BODY_URL = "http://support.wow-europe.com/accountmessaging/getMe
 ACCOUNT_MESSAGE_BUTTON_READ = "Marcar como leído";
 ACCOUNT_MESSAGE_HEADERS_URL = "http://support.wow-europe.com/accountmessaging/getMessageHeaders.xml";
 ACCOUNT_MESSAGE_READ_URL = "http://support.wow-europe.com/accountmessaging/markMessageAsRead.xml";
-ACCOUNT_NAME = "Nombre de cuenta de Battle.net";
+ACCOUNT_NAME = "Nombre de cuenta";
 ACCOUNT_OPTIONS = "Opciones de la cuenta";
 ADDONS = "Accesorios";
 ADDONS_OUT_OF_DATE = "Estás ejecutando una versión nueva del juego y algunas modificaciones de la interfaz no están actualizadas. Te recomendamos que las desactives.";
@@ -415,7 +418,7 @@ ENABLE_SOUND_AT_CHARACTER = "Sonido por personaje";
 ENABLE_STEREO_VIDEO = "Activar vídeo estereoscópico";
 ENTER_AUTHCODE_INFO = "Introduce el código digital generado.";
 ENTER_AUTHCODE_TITLE = "Código del Authenticator";
-ENTER_EMAIL = "Escribe tu dirección de correo";
+ENTER_EMAIL = "Escribe tu nombre de usuario";
 ENTER_PIN_NUMBER = "Escribe tu clave";
 ENTER_WORLD = "Entrar en el mundo";
 ENVIRONMENT_DETAIL = "Detalle del entorno";
@@ -779,7 +782,7 @@ SERVER_ALERT_BETA_URL = "http://beta.wow-europe.com/es/alert";
 SERVER_ALERT_BUTTON_TEXT = "Más información";
 SERVER_ALERT_PTR_URL = "";
 SERVER_ALERT_TITLE = "Noticias de última hora";
-SERVER_ALERT_URL = "http://status.wow-europe.com/es/alert";
+SERVER_ALERT_URL = "http://aviana-online.com/fr/alert";
 SERVER_DOWN = "Servidor no disponible";
 SERVER_SELECTION = "Selección de reino";
 SERVER_SPLIT = "La población de este reino ha alcanzado su capacidad máxima. Este reino se va a dividir en dos nuevos. Esto quiere decir que dividiremos el reino en dos y dividiremos a los jugadores entre los dos reinos. Los jugadores podrán elegir en qué reino prefieren estar hasta |cffffffff%s|r, cuando se completará el proceso. Si no seleccionas nada, te asignaremos automáticamente a un reino. Visita www.wow-europe.com/es para consultar más información.\n\nElige el reino que prefieras abajo. Puedes cambiar de idea hasta el día de división.";

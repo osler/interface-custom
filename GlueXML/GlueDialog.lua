@@ -490,6 +490,16 @@ GlueDialogTypes["REALM_TOURNAMENT_WARNING"] = {
 	end,
 }
 
+GlueDialogTypes["TEST_HTML"] = {
+	text = "<b>html...</b>",
+	button1 = "Pruebaa",
+	html = 1,
+	showAlert = 1,
+	OnAccept = function()
+		GlueDialog:Hide();
+	end,
+}
+
 function GlueDialog_Show(which, text, data)
 	local dialogInfo = GlueDialogTypes[which];
 	-- Pick a free dialog to use
