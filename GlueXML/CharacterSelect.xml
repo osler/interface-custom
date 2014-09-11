@@ -186,6 +186,12 @@
 							<OnUpdate>
 								CharacterSelect_DeathKnightSwap(self);
 							</OnUpdate>
+							<OnEnter>
+								movimiento(5, true, 0);
+							</OnEnter>
+							<OnLeave>
+								movimiento(5, false, 0);
+							</OnLeave>
 						</Scripts>
 					</Button>
 					<!--<Button name="CharacterSelectDecreaseSpeed">

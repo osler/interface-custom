@@ -177,26 +177,44 @@ function CharacterSelect_OnHide()
 	end
 	SERVER_SPLIT_STATE_PENDING = -1;
 end
+movy = true;
+hasmoved = false;
+posx= 0;
 pos = 20;
 limit = false;
 heightsc = GetScreenHeight()-50;
-function movimiento(sp)
-	while not limit and pos <= heightsc do
-		pos=pos+sp
-		if pos >= heightsc then
-			limit = true
+function movimiento(sp, horitruef, xsp, ignorehm)
+	if not horitruef then
+		movy = true;
+		while not limit and pos <= heightsc do
+			pos=pos+sp
+			if pos >= heightsc then
+				limit = true
+			end
+			break
 		end
-		break
-	end
-
-	while limit and pos >= 20 do
-		pos=pos-sp
-		if pos <= 20 then
-			limit = false
+	
+		while limit and pos >= 20 do
+			pos=pos-sp
+			if pos <= 20 then
+				limit = false
+			end
+			break
 		end
-		break
+		CharSelectEnterWorldButton:SetPoint("BOTTOM", posx, pos)
+	elseif horitruef then
+		movy = false;
+		posx = 400;
+		if hasmoved then
+			posx = 0;
+			hasmoved = false;
+		else
+			hasmoved = true;
+			posx = 400;
+		end
+		CharSelectEnterWorldButton:SetPoint("BOTTOM", posx, pos)
+		
 	end
-	CharSelectEnterWorldButton:SetPoint("BOTTOM", 0, pos)
 end
 
 function PrintLimit()
@@ -207,8 +225,16 @@ function PrintLimit()
 	end
 end
 
+function MovimientoLateral(velocidad)
+	pox = 100
+	CharSelectEnterWorldButton:SetPoint("BOTTOM", posx, pos)
+	return posx
+end
+
 function CharacterSelect_OnUpdate(elapsed)
-	movimiento(5);
+	if movy then
+		movimiento(5, false, 0);
+	end
 	GameRoomBillingFrameText:SetText("Velocidad: "..speed.."\nRotacion: "..GetCharacterSelectFacing().."\n\nPersonajes: "..GetNumCharacters().."\nAddons: "..GetNumAddOns().."\n\nPosicion:"..pos.."\nLimit: "..PrintLimit().."\nResolucion vertical:"..GetScreenHeight());
 	if ( SERVER_SPLIT_STATE_PENDING > 0 ) then
 		CharacterSelectRealmSplitButton:Show();
